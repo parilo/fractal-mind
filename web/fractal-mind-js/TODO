@@ -1,3 +1,0 @@
-phisycs refactoring to remove nodeModel, need only path parameters,
-physics model shouldn't know about nodeModel,
-it should only work with coords and other parameters
