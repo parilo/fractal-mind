@@ -23,7 +23,7 @@ NodeField.prototype.setMainNode = function (node) {
     this.mainNodeCalcData = {
         coords: node.geomModel.getCoords(),
         r: node.geomModel.getRadius(),
-        velocity: { x: 0, y: 0 },//cloneObject(node.physModel.velocity),
+        velocity: { x: 0, y: 0 },
         nodeModel: node
     };
 };
@@ -39,7 +39,7 @@ NodeField.prototype.initChildenNodesCalcData = function () {
         this.childNodesCalcData.push({
             coords: this.childNodes[i].geomModel.getCoords(),
             r: /*this.childNodes[i].geomModel.getRadius()*/this.childNodes[i].getRadiusWithAllChildren(),
-            velocity: { x: 0, y: 0 },//cloneObject(this.childNodes[i].physModel.velocity),
+            velocity: { x: 0, y: 0 },
             nodeModel: this.childNodes[i],
             attached: this.childNodes[i].attached
         });

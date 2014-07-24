@@ -41,6 +41,17 @@ CameraModel.prototype.set = function (cameraModel) {
     
 }
 
+CameraModel.prototype.clone = function () {
+
+    var cm = new CameraModel();
+    cm.centerAt.x = this.centerAt.x;
+    cm.centerAt.y = this.centerAt.y;
+    cm.rotation = this.rotation;
+    cm.zoom = this.zoom;
+    
+    return cm;
+}
+
 
 
 function Camera() {
@@ -57,7 +68,7 @@ function Camera() {
 }
 
 Camera.prototype.getCameraModel = function () {
-    return FM.Obj.cloneObject(this.cameraModel);
+    return this.cameraModel.clone();
 };
 
 /**
@@ -65,7 +76,7 @@ Camera.prototype.getCameraModel = function () {
 */
 Camera.prototype.moveTo = function (cameraModel) {
 
-    var oldCameraModel = FM.Obj.cloneObject(this.cameraModel);
+    var oldCameraModel = this.cameraModel.clone();
     this.cameraModel.set(cameraModel);
     
     var ev = {
@@ -79,7 +90,7 @@ Camera.prototype.moveTo = function (cameraModel) {
 
 Camera.prototype.flyTo = function (cameraModel) {
 
-    var oldCameraModel = FM.Obj.cloneObject(this.cameraModel);
+    var oldCameraModel = this.cameraModel.clone();
     this.cameraModel.set(cameraModel);
     
     var ev = {

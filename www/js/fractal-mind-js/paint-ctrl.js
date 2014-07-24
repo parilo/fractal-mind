@@ -151,6 +151,10 @@ function NodePaintCtrl() {
         },
         this
     );
+
+    this.redrawZoomInvariantTextLazy = FM.Funcs.bindLazy(function(){
+        this.redrawZoomInvariantText();
+    }, this, 100);
     
     this.center = { x: 0, y: 0 };
     this.radius = 0;
@@ -212,18 +216,6 @@ NodePaintCtrl.prototype.drawZoomInvariantText = function (p) {
     this.paintDriver.getCamera().fly(this.cameraChangeHandler);
     
 };
-
-NodePaintCtrl.prototype.redrawZoomInvariantTextLazy = function () {
-    
-    if( this.hasOwnProperty('redrawZoomInvariantTextLazyTimer') ){
-        clearTimeout(this.redrawZoomInvariantTextLazyTimer);
-    }
-    
-    this.redrawZoomInvariantTextLazyTimer = setTimeout(FM.Funcs.bind(function(){
-        this.redrawZoomInvariantText();
-        delete this.redrawZoomInvariantTextLazyTimer;
-    }, this), 100);
-}
 
 NodePaintCtrl.prototype.redrawZoomInvariantText = function () {
 

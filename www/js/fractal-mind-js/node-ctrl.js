@@ -3,8 +3,10 @@ function NodeViewCtrl () {
     this.nodeView = null;
     
     this.nodeViewDetalizationLevelChangedHandler = FM.Funcs.bind(function(event){
-        if( this.nodeView.visible ){
-            this.changeDetailLevel(event.oldDetailLevel, event.detailLevel);
+        if( this.nodeView.visible &&
+            ( event.oldDetailLevel != event.detailLevel )
+        ){
+            this.changeDetailLevelLazy(event.oldDetailLevel, event.detailLevel);
         }
     }, this);
 
@@ -13,6 +15,10 @@ function NodeViewCtrl () {
             this.refreshView();
         }
     }, this);
+    
+    this.changeDetailLevelLazy = FM.Funcs.bindLazy( function () {
+        this.changeDetailLevel.apply(this, arguments);
+    }, this, 100);
 
 };
 

@@ -107,7 +107,7 @@ FractalMind.prototype.main = function(params){
     
     var w = new WorldCtrl();
     
-    var cameraModel = w.worldView.getCamera().cameraModel;
+    var cameraModel = w.worldView.getCamera().getCameraModel();
     cameraModel.zoomCamera(/*0.80*/FractalMind.params.viewportSize.h/7.7/150);
     cameraModel.centerAt = {
         x: FractalMind.params.viewportSize.w/2,

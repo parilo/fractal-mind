@@ -1,54 +1,11 @@
 
-function HandlerTool () {
-    this.handlers = [];
-}
-
-HandlerTool.prototype.addHandler = function (handler) {
-    this.handlers.push(handler);
-};
-
-HandlerTool.prototype.removeHandler = function (handler) {
-    for(var i=0; i<this.handlers.length; i++){
-        if( this.handlers[i] == handler ){
-            this.handlers.splice(i, 1);
-            return;
-        }
-    }
-};
-
-HandlerTool.prototype.invoke = function (params) {
-    for(var i=0; i<this.handlers.length; i++){
-        this.handlers[i](params);
-    }
-}
-
-
-
-function cloneObject (obj) {
-    return jQuery.extend(true, {}, obj);
-}
-
-
-
-function bind(func, context /*, args*/) {
-  var bindArgs = [].slice.call(arguments, 2);
-  function wrapper() {
-    var args = [].slice.call(arguments); 
-    var unshiftArgs = bindArgs.concat(args);
-    return func.apply(context, unshiftArgs);
-  }
-  return wrapper;
-}
-
-
-
 FM = {};
 
 FM.Obj = {
-
-    cloneObject: function (obj) {
-        return jQuery.extend(true, {}, obj);
-    }
+    
+//    cloneObject: function (obj) {
+//        return jQuery.extend(true, {}, obj);
+//    }
     
 };
 
@@ -76,9 +33,9 @@ FM.Math = {
 FM.Funcs = {};
 
 FM.Funcs.bind = function (func, context /*, args*/) {
-  var bindArgs = [].slice.call(arguments, 2);
+  var bindArgs = Array.prototype.slice.call(arguments, 2);
   function wrapper() {
-    var args = [].slice.call(arguments); 
+    var args = Array.prototype.slice.call(arguments); 
     var unshiftArgs = bindArgs.concat(args);
     return func.apply(context, unshiftArgs);
   }
@@ -134,6 +91,23 @@ FM.Funcs.mixIn = function (Object, Mixin) {
     
 };
 
+FM.Funcs.bindLazy = function (func, context, timeout /*, args*/) {
+    var bindArgs = Array.prototype.slice.call(arguments, 3);
+    var timerId = null;
+    function wrapper() {
+        var args = Array.prototype.slice.call(arguments);
+        var unshiftArgs = bindArgs.concat(args);
+        
+        if (timerId != null) {
+            clearTimeout(timerId);
+        }
+
+        timerId = setTimeout(function(){
+            func.apply(context, unshiftArgs);
+        }, timeout);
+    }
+    return wrapper;
+}
 
 
 

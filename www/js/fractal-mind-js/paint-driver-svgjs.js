@@ -322,7 +322,7 @@ PaintDriverSvgJSObject.prototype.click = function(handler, data) {
     this.on('click', 
         //before invoke click needed to check
         //whether it was pan
-        bind(
+        FM.Funcs.bind(
             function(hander, event){
                 if( !this.panDriver.wasMovedWhileMousedown ){
                     hander(event, data);

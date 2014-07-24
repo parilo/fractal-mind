@@ -241,14 +241,19 @@ NodeView.prototype.setChildrenVisible = function (visible) {
 
     if( visible && !this.isChildrenVisible() ){
         //show
-        this.childrenViews = [];
         
-        var childNodeModels = this.nodeModel.getChildren();
+        setTimeout(FM.Funcs.bind(function(){
+        
+            this.childrenViews = [];
 
-        for(var i=0; i<childNodeModels.length; i++){
-            var childNodeModel = childNodeModels[i];
-            this.childrenViews.push(this.drawChildNode(childNodeModel));
-        }
+            var childNodeModels = this.nodeModel.getChildren();
+
+            for(var i=0; i<childNodeModels.length; i++){
+                var childNodeModel = childNodeModels[i];
+                this.childrenViews.push(this.drawChildNode(childNodeModel));
+            }
+            
+        }, this), 100);
         
     }
 
